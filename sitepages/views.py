@@ -1,27 +1,17 @@
 from django.shortcuts import render
+from django.conf import settings
+from django.conf.urls.static import static
 
 def main(request):
-    return render(request, 'sitepages/main.html')
+    return render(request, 'sitepages/before_login/main.html')
 
-def next(request):
-    return render(request, 'sitepages/next.html')
+def about_us(request):
+    return render(request, 'sitepages/before_login/about_us.html')
 
-from django.shortcuts import render
-import os
-
-from django.shortcuts import render
-from django.conf import settings
-import os
-
-def index(request):
-    file_path = os.path.join(settings.BASE_DIR, 'sitepages/static/sitepages/sample.txt')
+def show_file_content(request):
+    with open('sitepages/templates/sitepages/infos/main.txt', 'r') as file:
+        file_content = file.read()
     
-    try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            content = file.read()
-    except FileNotFoundError:
-        content = "Файл не знайдено!"
-    
-    return render(request, 'sitepages/main.html', {'content': content})
+    return render(request, 'sitepages/before_login/main.html', {'file_content': file_content})
 
 
